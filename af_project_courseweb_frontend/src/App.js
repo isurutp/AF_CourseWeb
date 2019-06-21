@@ -1,25 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import LoginComponent from "./Components/Login_Component" ;
+import RegisterComponent from "./Components/Register_Component" ;
+import HomeComponent from "./Components/Home_Component" ;
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+        <div className="container">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+
+            <Link to="/" className="navbar-brand">CourseWeb</Link>
+            <div className="collapse navbar-collapse">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                  <Link to="/register" className="nav-link">Register</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/login" className="nav-link">Login</Link>
+                </li>
+              </ul>
+            </div>
+
+          </nav>
+          <Route path="/" exact component={HomeComponent}/>
+          <Route path="/register" component={RegisterComponent}/>
+          <Route path="/login" component={LoginComponent}/>
+
+        </div>
+      </Router>
   );
 }
 
