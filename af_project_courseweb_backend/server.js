@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 const PORT = 4000;
 
-mongoose.connect('mongodb://127.0.0.1:27017/todos', {useNewUrlParser: true});
+mongoose.connect('mongodb://127.0.0.1:27017/courseweb', {useNewUrlParser: true});
 const connection = mongoose.connection;
 
 connection.once('open', function () {
@@ -22,7 +22,7 @@ connection.once('open', function () {
 
 
 
-app.use('/list', courseRoutes);
+app.use('/courseweb', courseRoutes);
 
 app.listen(PORT, function () {
     console.log("Server is running on port : " + PORT);
