@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 let Assignments = require('./DBSchema/AssignmentSchema');
+let studentList = require('./DBSchema/StudentSchema');
 
 const courseRoutes = express.Router();
 
@@ -37,6 +38,27 @@ courseRoutes.route('/assignments/:courseNo').get(function(req, res){
     let courseNo = req.params.courseNo;
     Assignments.find({assignment_course : courseNo}, function(err, assignments){
         res.json(assignments);
+    })
+});
+
+courseRoutes.post('/student/add', function(req,res){
+    let list =  new studentList(req.body);
+    list.save()
+        .then(list => {
+            res.status(200).json({message: 'Successfully added', data: list})
+        })
+        .catch(err => {
+            res.status(400).json({message: 'Something went wrong', error: err})
+        })
+});
+
+courseRoutes.get('/student/all', function (req,res) {
+    studentList.find(function (err,list) {
+        if (err){
+            res.status(400).json({message: 'Something went wrong', error: err})
+        }else{
+            res.status(200).json(list)
+        }
     })
 });
 
