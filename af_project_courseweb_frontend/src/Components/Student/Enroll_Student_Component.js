@@ -2,11 +2,40 @@ import React, {Component} from "react";
 import {Link} from 'react-router-dom';
 import axios from 'axios' ;
 
+const ReadLis = props => (
+    <tr>
+        <td>{props.list.course_name}</td>
+        <td>{props.list.course_code}</td>
+        <td>
+            <Link to={"/student/enroll_course/"+ props.list._id}>Enroll</Link>
+        </td>
+    </tr>
+);
+
+
 export default class Enroll_Student_Component extends Component {
 
     constructor(props){
         super(props);
-        this.state = {};
+
+        this.state = {
+            list: []
+        };
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:4000/courseweb/course/all')
+            .then(res => {
+                this.setState({list: res.data});
+            }).catch(function (err) {
+            console.log(err);
+        });
+    }
+
+    readList() {
+        return this.state.list.map(function (currentList, i) {
+            return <ReadLis list={currentList} key={i} /> ;
+        });
     }
 
     render() {
@@ -23,7 +52,8 @@ export default class Enroll_Student_Component extends Component {
                     </tr>
                     </thead>
                     <tbody>
-
+                    {this.readList()}
+                    {this.read}
                     </tbody>
                 </table>
             </div>
