@@ -51,6 +51,30 @@ courseRoutes.route('/assignments/:courseNo').get(function(req, res){
     })
 });
 
+//Update Assignment
+courseRoutes.route('/assignments/update/:id').post(function(req, res){
+    let id = req.params.id;
+    Assignments.findById(id, function (err, assignment){
+        if(!assignment){
+            res.status(404).send('Assignment not found');
+        }
+        else{
+            assignment.assignment_name = req.body.assignment_name;
+            assignment.assignment_course = req.body.assignment_course;
+            assignment.assignment_due = req.body.assignment_due;
+            assignment.assignment_marks = req.body.assignment_marks;
+
+            assignment.save()
+            .then(assignment => {
+                res.json('Assignment Updated');
+            })
+            .catch(err => {
+                res.status(400).send("Update not possible");
+            });
+        }
+    });
+});
+
 
 
 //************************************************* STUDENT ************************************************************
