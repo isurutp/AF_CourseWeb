@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginComponent from "./Components/Login_Component" ;
 import RegisterComponent from "./Components/Register_Component" ;
 import HomeComponent from "./Components/Home_Component" ;
+import StudentProfile from "./Components/Student_Profile_Component" ;
 
 import './App.css';
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" exact component={HomeComponent}/>
           <Route path="/register" component={RegisterComponent}/>
           <Route path="/login" component={LoginComponent}/>
+          <Route path="/student_profile" component={StudentProfile}/>
 
         </div>
       </Router>
