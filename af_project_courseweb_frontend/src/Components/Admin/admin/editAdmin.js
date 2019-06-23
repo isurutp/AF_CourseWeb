@@ -61,7 +61,13 @@ export default class EditAdmin extends Component{
         axios.post('http://localhost:4000/admin/update/' +this.props.match.params.id, adminObj)
             .then(res => console.log(res.data));
 
-        this.props.history.push('/admin_profile');
+        this.setState ({
+            admin_username: '',
+            admin_email: '',
+            admin_password: ''
+        });
+
+        //this.props.history.push('/admin_profile');
     }
 
     render() {

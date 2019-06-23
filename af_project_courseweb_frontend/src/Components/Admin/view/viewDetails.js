@@ -11,23 +11,8 @@ const Admin = props => (
         <td>
             <Link to={"/editAdmin/" +props.admin._id}>Edit</Link>
         </td>
-        <td>
-            <button onClick={() => onDelete(props.admin._id)}>Delete</button>
-        </td>
     </tr>
 );
-
-function onDelete(adminId){
-    axios.delete('http://localhost:4000/admin/delete/' + {id: adminId   })
-        .then(res => {
-            console.log(res);
-            console.log('it works');
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    console.log('inside');
-}
 
 const Instructor = props => (
     <tr>
@@ -95,6 +80,7 @@ export default class viewList extends Component{
     }
 
     componentDidUpdate() {
+/*
         axios.get('http://localhost:4000/admin/')
             .then(response => {
                 this.setState({admins: response.data});
@@ -117,7 +103,7 @@ export default class viewList extends Component{
             })
             .catch((err) => {
                 console.log(err);
-            })
+            })*/
     }
 
     adminList(){
