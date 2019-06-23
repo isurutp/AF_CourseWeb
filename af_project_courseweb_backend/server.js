@@ -139,18 +139,23 @@ courseRoutes.get('/student/assignments/:studentId', function (req,res) {
             res.status(404).json({message: 'Data not found'})
         }else{
             var count = student.student_courses.length ;
-            const courseList = [] ;
             const assignmentList = [] ;
             var i ;
 
-            for (i=0 ; i<count ; i++){
-                courseList.push(student.student_courses[i].courseId);
-            };
+            function isEmpty(obj) {
+                for(var key in obj) {
+                    if(obj.hasOwnProperty(key))
+                        return false;
+                }
+                return true;
+            }
 
             function getDetails(){
                 for (i=0 ; i<count ; i++){
                     Assignments.find({assignment_course : student.student_courses[i].courseId}, function(err, assignments){
-                        assignmentList.push(assignments);
+                        if (!isEmpty(assignments)){
+                            assignmentList.push(assignments);
+                        }
                     });
                 };
             }
@@ -166,6 +171,46 @@ courseRoutes.get('/student/assignments/:studentId', function (req,res) {
         }
     })
 });
+
+courseRoutes.get('/student/my_courses/:studentId', function (req,res) {
+    studentList.findById(req.params.studentId, function (err, student) {
+        if (!student){
+            res.status(404).json({message: 'Data not found'})
+        }else{
+            var count = student.student_courses.length ;
+            const courseListTemp = [] ;
+            var i ;
+
+            function isEmpty(obj) {
+                for(var key in obj) {
+                    if(obj.hasOwnProperty(key))
+                        return false;
+                }
+                return true;
+            }
+
+            function getDetails(){
+                for (i=0 ; i<count ; i++){
+                    courseList.findById(student.student_courses[i].courseId, function(err, courses){
+                        if (!isEmpty(courses)){
+                            courseListTemp.push(courses);
+                        }
+                    });
+                };
+            }
+
+            function sendDetails(){
+                setTimeout( function(){
+                    res.status(200).send(courseListTemp);
+                }, 1500 );
+            }
+
+            getDetails();
+            sendDetails();
+        }
+    })
+});
+
 
 //****************************************** END OF STUDENT END POINTS *************************************************
 //**********************************************************************************************************************
