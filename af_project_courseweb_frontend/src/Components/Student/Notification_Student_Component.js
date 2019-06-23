@@ -7,7 +7,7 @@ const ReadLis = props => (
         <td>{props.list[0].assignment_name}</td>
         <td>{props.list[0].assignment_due}</td>
         <td>
-            <Link to={"/student/enroll_course/"+ props.list[0]._id}>Add Submission</Link>
+            <Link to={"/student/add_submission/"+ props.list[0]._id}>Add Submission</Link>
         </td>
     </tr>
 );

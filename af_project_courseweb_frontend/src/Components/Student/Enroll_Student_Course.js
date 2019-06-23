@@ -6,7 +6,15 @@ export default class Enroll_Student_Course extends Component {
 
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            enrollmentKey: ''
+        };
+    }
+
+    onChangeEnrollmentKey(e){
+        this.setState({
+            list_responsible: e.target.value
+        });
     }
 
     render() {
@@ -17,7 +25,8 @@ export default class Enroll_Student_Course extends Component {
                 <form>
                     <label>Enrollment key</label><br/>
                     <input type={"text"}/><br/><br/>
-                    <input type={"submit"} value={"Submit"} className="btn btn-primary"/>
+                    <input type={"submit"} value={"Submit"} className="btn btn-primary"
+                        onClick={this.onChangeEnrollmentKey}/>
                 </form>
             </div>
         )
