@@ -6,7 +6,6 @@
       <change afterPath="$PROJECT_DIR$/src/Components/Admin/Admin_profile_component.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/Components/Admin/Instructor/addInstructor.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/Components/Admin/Instructor/editInstructor.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Admin/admin/addAdmin.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/Components/Admin/admin/editAdmin.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/Components/Admin/course/addCourse.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/Components/Admin/course/editCourse.js" afterDir="false" />
@@ -19,6 +18,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Admin/admin/addAdmin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Admin/admin/addAdmin.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -52,11 +52,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/Student/Enroll_Student_Course.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
+            <state relative-caret-position="701">
               <caret line="61" selection-start-line="61" selection-end-line="61" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Components/Admin/admin/addAdmin.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1275">
+              <caret line="89" column="70" selection-start-line="89" selection-start-column="70" selection-end-line="89" selection-end-column="70" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -132,11 +144,11 @@
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/Components/Admin/email/sendEmail.js" />
         <option value="$PROJECT_DIR$/src/Components/Admin/course/editCourse.js" />
-        <option value="$PROJECT_DIR$/src/Components/Admin/admin/addAdmin.js" />
         <option value="$PROJECT_DIR$/src/Components/Admin/admin/editAdmin.js" />
         <option value="$PROJECT_DIR$/src/Components/Admin/course/addCourse.js" />
         <option value="$PROJECT_DIR$/src/Components/Admin/Instructor/addInstructor.js" />
         <option value="$PROJECT_DIR$/src/Components/Admin/Instructor/editInstructor.js" />
+        <option value="$PROJECT_DIR$/src/Components/Admin/admin/addAdmin.js" />
       </list>
     </option>
   </component>
@@ -169,6 +181,21 @@
               <item name="af_project_courseweb_frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="af_project_courseweb_frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="af_project_courseweb_frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Components" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="af_project_courseweb_frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="af_project_courseweb_frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Components" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="af_project_courseweb_frontend" type="b2602c69:ProjectViewProjectNode" />
@@ -224,12 +251,12 @@
       <workItem from="1561101729269" duration="99000" />
       <workItem from="1561144895797" duration="1178000" />
       <workItem from="1561170966183" duration="18656000" />
-      <workItem from="1561269627504" duration="11721000" />
+      <workItem from="1561269627504" duration="12009000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33496000" />
+    <option name="totallyTimeSpent" value="33784000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
@@ -238,7 +265,7 @@
       <window_info id="npm" order="1" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.16920027" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.27793297" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.16759777" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="2" />
       <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
@@ -370,8 +397,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Student/Enroll_Student_Course.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
+        <state relative-caret-position="701">
           <caret line="61" selection-start-line="61" selection-end-line="61" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Admin/admin/addAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="89" column="70" selection-start-line="89" selection-start-column="70" selection-end-line="89" selection-end-column="70" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -14,10 +14,7 @@ export default class AddAdmin extends Component{
         this.state = {
             admin_username:'',
             admin_email:'',
-            admin_password:'',
-            admin_username_error:'',
-            admin_email_error:'',
-            admin_password_error:''
+            admin_password:''
         }
     }
 
@@ -38,33 +35,8 @@ export default class AddAdmin extends Component{
             admin_password: e.target.value
         });
     }
-
-    validate = () => {
-        let admin_username_error= '';
-        let admin_email_error= '';
-        let admin_password_error= '';
-
-        if(!this.state.admin_username_error){
-            admin_username_error = 'Name field cannot be empty'
-        }
-        if(!this.state.admin_email.includes('@')){
-            admin_email_error = 'Invalid email'
-        }
-        if(!this.state.admin_password_error){
-            admin_password_error = 'Password field cannot be empty'
-        }
-        if(admin_email_error && admin_username_error){
-            this.setState({ admin_email_error, admin_username_error});
-            return false;
-        }
-        return true;
-    }
     onSubmit(e){
         e.preventDefault();
-
-        const isValid = this.validate();
-
-        if(isValid){
 
             const newAdmin ={
                 admin_username: this.state.admin_username,
@@ -85,9 +57,7 @@ export default class AddAdmin extends Component{
             });
 
             this.props.history.push('/admin_profile');
-        }
-
-
+            
     }
 
     render() {
@@ -101,7 +71,6 @@ export default class AddAdmin extends Component{
                                className="form-control"
                                value={this.state.admin_username}
                                onChange={this.onChangeAdminUsername}/>
-                        <div style={{color: "red"}}>{this.state.admin_username_error}</div>
                     </div>
 
                     <div className="form-group">
@@ -111,7 +80,6 @@ export default class AddAdmin extends Component{
                                className="form-control"
                                value={this.state.admin_email}
                                onChange={this.onChangeAdminEmail}/>
-                        <div style={{color: "red"}}>{this.state.admin_email_error}</div>
                     </div>
 
                     <div className="form-group">
@@ -120,7 +88,6 @@ export default class AddAdmin extends Component{
                                className="form-control"
                                value={this.state.admin_password}
                                onChange={this.onChangeAdminPassword}/>
-                        <div style={{color: "red"}}>{this.state.admin_password_error}</div>
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Create Admin" className="btn btn-primary"/>
