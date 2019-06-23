@@ -12,6 +12,8 @@ let Admin = require('./routes/admin.route');
 let Instructor = require('./routes/instructor.route');
 let Course = require('./routes/course.route');
 
+const validate = require('./Login');
+
 //******************************************* REMOVE THIS CODE *********************************************************
 //**********************************************************************************************************************
 
@@ -112,6 +114,28 @@ courseRoutes.route('/assignments/update/:id').post(function(req, res){
             });
         }
     });
+});
+
+
+//************************************************* Login & Signup ************************************************************
+//**********************************************************************************************************************
+//sign up
+courseRoutes.post('/signup', (req,res) => {
+   let student = new studentList(req.body);
+   student.save()
+    .then(student => {
+      res.status(200).send({message:"signed up"});
+    })
+    .catch(err => {
+      res.status(404).send({message:err})
+    })
+
+});
+
+
+//login
+courseRoutes.post('/login',(req,res) => {
+  validate(req.body.username,req.body.password,res)
 });
 
 
