@@ -3,9 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 
 let Assignments = require('./DBSchema/AssignmentSchema');
 let studentList = require('./DBSchema/StudentSchema');
+
+let Admin = require('./routes/admin.route');
+let Instructor = require('./routes/instructor.route');
+let Course = require('./routes/course.route');
 
 //******************************************* REMOVE THIS CODE *********************************************************
 //**********************************************************************************************************************
@@ -30,6 +35,39 @@ connection.once('open', function () {
     console.log("MongoDB connection successful");
 });
 
+app.route('/email').post((req, res) => {
+    const {email_to, email_subject, email_text} = req.body;
+    console.log('Data: ', req.body);
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        secure: false,
+        port: 25,
+        auth: {
+            user: 'navod80@gmail.com',
+            pass: 'navodi35'
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
+
+    let HelperOptions = {
+        from: '"Navod Avishka" <navod80@gmail.com>',
+        to: email_to,
+        subject: email_subject,
+        text: email_text
+    };
+
+    transporter.sendMail(HelperOptions, (err, info) => {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("The message was sent!");
+        console.log(info);
+    });
+
+});
 
 
 courseRoutes.route('/assignments/add').post(function (req, res){
@@ -40,6 +78,7 @@ courseRoutes.route('/assignments/add').post(function (req, res){
     })
     .catch(err =>{
         res.status(400).send(err);
+        console.log(err);
     });
 });
 
@@ -261,6 +300,9 @@ courseRoutes.get('/course/all', function (req,res) {
 //**********************************************************************************************************************
 //**********************************************************************************************************************
 
+app.use('/admin', Admin);
+app.use('/instructor', Instructor);
+app.use('/course', Course);
 app.use('/courseweb', courseRoutes);
 
 app.listen(PORT, function () {
