@@ -7,7 +7,7 @@ const ReadLis = props => (
         <td>{props.list.assignment_name}</td>
         <td>{props.list.assignment_due}</td>
         <td>{props.list.assignment_marks}</td>
-        <td>Edit Assignment</td>
+        <td><Link to = {"/edit_assignment/" + props.list._id}> Edit Assignment</Link></td>
     </tr>
 );
 
