@@ -44,12 +44,13 @@ courseRoutes.route('/assignments/add').post(function (req, res){
     })
     .catch(err =>{
         res.status(400).send(err);
+        console.log(err);
     });
 });
 
 //view assignments of a particular course
 courseRoutes.route('/assignments/:courseNo').get(function(req, res){
-    let courseNo = req.params.id;
+    let courseNo = req.params.courseNo;
     Assignments.find({assignment_course : courseNo}, function(err, assignments){
         res.json(assignments);
     })

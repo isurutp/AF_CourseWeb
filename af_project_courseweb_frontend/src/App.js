@@ -6,8 +6,10 @@ import LoginComponent from "./Components/Login_Component" ;
 import RegisterComponent from "./Components/Register_Component" ;
 import HomeComponent from "./Components/Home_Component" ;
 import StudentProfile from "./Components/Student_Profile_Component" ;
+import InstructorProfile from "./Components/Instructor/Instructor_Profile_Component";
 
 import './App.css';
+
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
           <Route path="/register" component={RegisterComponent}/>
           <Route path="/login" component={LoginComponent}/>
           <Route path="/student_profile" component={StudentProfile}/>
-
+          <Route path = "/instructor_profile" component = {InstructorProfile}/>
         </div>
       </Router>
   );

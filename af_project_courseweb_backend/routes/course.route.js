@@ -23,6 +23,18 @@ router.route('/:id').get((req,res) => {
     });
 });
 
+router.route('/n/:name').get(function (req, res) {
+    let name = req.params.name;
+    courseModel.find({"course_instructor" : name}, function (err, course){
+        if(!err){
+            res.json(course);
+        }
+        else{
+            console.log(err);
+        }
+    });
+});
+
 router.route('/add').post((req,res) => {
     let course = new courseModel(req.body);
     course.save()
