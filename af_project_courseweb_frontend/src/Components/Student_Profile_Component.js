@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from 'axios' ;
 
 import enroll_student from "./Student/Enroll_Student_Component" ;
 import enroll_student_for_course from "./Student/Enroll_Student_Course" ;
