@@ -7,6 +7,10 @@ const mongoose = require('mongoose');
 let Assignments = require('./DBSchema/AssignmentSchema');
 let studentList = require('./DBSchema/StudentSchema');
 
+let Admin = require('./routes/admin.route');
+let Instructor = require('./routes/instructor.route');
+let Course = require('./routes/course.route');
+
 //******************************************* REMOVE THIS CODE *********************************************************
 //**********************************************************************************************************************
 
@@ -45,7 +49,7 @@ courseRoutes.route('/assignments/add').post(function (req, res){
 
 //view assignments of a particular course
 courseRoutes.route('/assignments/:courseNo').get(function(req, res){
-    let courseNo = req.params.courseNo;
+    let courseNo = req.params.id;
     Assignments.find({assignment_course : courseNo}, function(err, assignments){
         res.json(assignments);
     })
@@ -194,6 +198,9 @@ courseRoutes.get('/course/all', function (req,res) {
 //**********************************************************************************************************************
 //**********************************************************************************************************************
 
+app.use('/admin', Admin);
+app.use('/instructor', Instructor);
+app.use('/course', Course);
 app.use('/courseweb', courseRoutes);
 
 app.listen(PORT, function () {
