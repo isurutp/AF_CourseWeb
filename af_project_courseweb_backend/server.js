@@ -116,15 +116,37 @@ courseRoutes.post('/student/enroll/:studentId', function (req,res) {
         if (!student){
             res.status(404).json({message: 'Data not found'})
         }else{
-            student.student_courses.push(req.body);
 
-            student.save()
-                .then(course => {
-                    res.status(200).json({message: 'Successfully added', data: course})
-                })
-                .catch(err => {
-                    res.status(400).json({message: 'Update failed', error: err})
-                })
+            var count = student.student_courses.length ;
+            var i ;
+            var csFound = true ;
+            var csData = "Not found" ;
+
+            for (i=0; i<count; i++){
+                if (student.student_courses[i].courseId === req.body.courseId){
+                    csFound= false ;
+                }
+            }
+
+            function sendResponse(){
+                setTimeout( function(){
+                    if(csFound){
+                        student.student_courses.push(req.body);
+
+                        student.save()
+                            .then(course => {
+                                res.status(200).json({message: 'Successfully added', data: course})
+                            })
+                            .catch(err => {
+                                res.status(400).json({message: 'Update failed', error: err})
+                            })
+                    }else{
+                        res.status(200).send({message: "Already enrolled"});
+                    }
+                }, 500 );
+            }
+
+            sendResponse();
         }
     })
 });
