@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
+const upload = require('express-fileupload');
 
 let Assignments = require('./DBSchema/AssignmentSchema');
 let studentList = require('./DBSchema/StudentSchema');
@@ -27,6 +28,7 @@ const courseRoutes = express.Router();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(upload());
 
 const PORT = 4000;
 
@@ -297,6 +299,27 @@ courseRoutes.get('/student/my_courses/:studentId', function (req,res) {
             sendDetails();
         }
     })
+});
+
+courseRoutes.route("/student/assignment_submission").post(function(req,res){
+    if(req.body){
+        var filename = req.body.filename ;
+
+        res.status(200).json({file_name : filename})
+
+        /*file.mv("./upload/"+filename,function(err){
+            if (err){
+                console.log(err)
+                res.send("Error occured")
+            }else{
+                console.log(file)
+                res.send("Successful")
+            }
+        })*/
+    }else{
+        res.status(400).json({message : "Data not found"})
+    }
+    //res.status(200).json({mes: "Working", data: req.body.filename})
 });
 
 
