@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Validator from '../Validate';
 
 export default class EditInstructor extends Component{
 
@@ -52,16 +53,35 @@ export default class EditInstructor extends Component{
 
     onSubmit(e){
         e.preventDefault();
+        const validator = new Validator();
+        let vaildated = false;
+        if (String(this.state.instructor_username).trim() === "" ||
+          String(this.state.instructor_email).trim() === "" ||
+          String(this.state.instructor_password).trim() === ""){
+          this.setState({validationMessage:'cannot have empty fields'})
+        }else if(!validator.validateUsername(this.state.instructor_username)){
+          this.setState({validationMessage:'username is too long'});
+        }else if (!validator.validateEmail(this.state.instructor_email)){
+          this.setState({validationMessage:'email not valided'});
+        }else if (!validator.validatePassword(this.state.instructor_password)){
+          this.setState({validationMessage
+            :'password not valided only use (\"! # $ % & _ ?\") Symbols'});
+        }else{
+          vaildated = true;
+          this.setState({validationMessage:''})
+        }
 
-        const instructorObj = {
-            instructor_username: this.state.instructor_username,
-            instructor_email: this.state.instructor_email,
-            instructor_password: this.state.instructor_password
-        };
-        axios.post('http://localhost:4000/instructor/update/' +this.props.match.params.id, instructorObj)
-            .then(res => console.log(res.data));
+        if (vaildated){
+          const instructorObj = {
+              instructor_username: this.state.instructor_username,
+              instructor_email: this.state.instructor_email,
+              instructor_password: this.state.instructor_password
+          };
+          axios.post('http://localhost:4000/instructor/update/' +this.props.match.params.id, instructorObj)
+              .then(res => console.log(res.data));
 
-        this.props.history.push('/admin_profile');
+          this.props.history.push('/admin_profile');
+        }
     }
 
     render() {
@@ -94,6 +114,9 @@ export default class EditInstructor extends Component{
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Update Instructor" className="btn btn-primary"/>
+                    </div>
+                    <div className= "alert-danger">
+                      {this.state.validationMessage}
                     </div>
                 </form>
             </div>

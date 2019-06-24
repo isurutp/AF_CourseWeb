@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-
+import Validator from '../Validate';
 export default class AddAdmin extends Component{
 
     constructor(props) {
@@ -14,7 +14,8 @@ export default class AddAdmin extends Component{
         this.state = {
             admin_username:'',
             admin_email:'',
-            admin_password:''
+            admin_password:'',
+            validationMessage:['']
         }
     }
 
@@ -37,7 +38,28 @@ export default class AddAdmin extends Component{
     }
     onSubmit(e){
         e.preventDefault();
+        const validator = new Validator();
+        let vaildated = false;
+        if (String(this.state.admin_username).trim() === "" ||
+          String(this.state.admin_email).trim() === "" ||
+          String(this.state.admin_password).trim() === "" ) {
+        this.setState({validationMessage:'cannot have empty fields'})
+        }else if(!validator.validateUsername(this.state.admin_username)){
+          this.setState({validationMessage:'username too long'});
+        }else if (!validator.validateEmail(this.state.admin_email)){
+          this.setState({validationMessage:'email not valided'});
+        }else if (!validator.validatePassword(this.admin_password)){
+          this.setState({validationMessage:
+            'password not valided only use (\"! # $ % & _ ?\") Symbols'});
+        }else{
+          vaildated = true;
+          this.setState({validationMessage:''})
+        }
 
+
+
+
+        if (vaildated){
             const newAdmin ={
                 admin_username: this.state.admin_username,
                 admin_email: this.state.admin_email,
@@ -57,7 +79,7 @@ export default class AddAdmin extends Component{
             });
 
             this.props.history.push('/admin_profile');
-            
+          }
     }
 
     render() {
@@ -91,6 +113,9 @@ export default class AddAdmin extends Component{
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Create Admin" className="btn btn-primary"/>
+                    </div>
+                    <div className= "alert-danger">
+                      {this.state.validationMessage}
                     </div>
                 </form>
             </div>
