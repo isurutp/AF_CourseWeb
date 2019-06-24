@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from 'axios' ;
+import Login from './Login/Login'
 
 export default class LoginComponent extends Component {
 
@@ -11,7 +12,7 @@ export default class LoginComponent extends Component {
     render() {
         return(
             <div>
-                <h3>Login</h3>
+                <Login/>
             </div>
         )
     }

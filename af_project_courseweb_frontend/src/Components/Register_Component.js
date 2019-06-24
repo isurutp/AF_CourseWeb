@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from 'axios' ;
+import SignUp from './Login/SignUp'
 
 export default class Register_Component extends Component {
 
@@ -11,7 +12,7 @@ export default class Register_Component extends Component {
     render() {
         return(
             <div>
-                <h3>Register</h3>
+                <SignUp/>
             </div>
         )
     }
