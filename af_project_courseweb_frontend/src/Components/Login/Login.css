@@ -1,0 +1,37 @@
+.centerForm{
+  padding-top: 100px;
+  width:300px;
+  max-height: 400px;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 4%;
+  border: solid;
+}
+
+.submitButton{
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.extended_column_bottom_2X{
+  padding-top:30px;
+}
+
+.extended_column_bottom{
+  padding-top:10px;
+}
+.extended_column_top{
+  padding-top:50px;
+}
+
+.float_right{
+  float: right;
+}
+
+.roundedCorners{
+  border-radius:5px;
+}
+
+.full_line{
+  width: 100%;
+}

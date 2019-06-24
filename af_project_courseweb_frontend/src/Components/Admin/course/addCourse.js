@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Validator from '../Validate';
 
 export default class AddCourse extends Component{
 
@@ -16,7 +17,8 @@ export default class AddCourse extends Component{
             course_code:'',
             course_name:'',
             course_instructor:'',
-            course_instructor_email:''
+            course_instructor_email:'',
+            validationMessage:['']
         }
     }
 
@@ -59,24 +61,46 @@ export default class AddCourse extends Component{
 
     onSubmit(e){
         e.preventDefault();
+        const validator = new Validator();
+        let vaildated = false;
+        if (String(this.state.course_code).trim() === "" ||
+          String(this.state.course_name).trim() === "" ||
+          String(this.state.course_instructor).trim() === "" ||
+          String(this.state.course_instructor_email).trim() === ""){
+          this.setState({validationMessage:'cannot have empty fields'})
+        }else if(!validator.validateUsername(this.state.course_name)){
+          this.setState({validationMessage:'Course name is too long'});
+        }else if (!validator.validateEmail(this.state.course_instructor_email)){
+          this.setState({validationMessage:'email not valided'});
+//        }else if (!validator.validateName(this.state.course_instructor)){
+//          this.setState({validationMessage:'instructor name not valied'});
+        }else if (!validator.validateCourseCode(this.state.course_code)){
+           this.setState({validationMessage:'code not valid'});
+        }else{
+          vaildated = true;
+          this.setState({validationMessage:''})
+        }
 
-        const newCourse = {
-            course_code: this.state.course_code,
-            course_name: this.state.course_name,
-            course_instructor: this.state.course_instructor,
-            course_instructor_email: this.state.course_instructor_email
-        };
-        axios.post('http://localhost:4000/course/add', newCourse)
-            .then(res => console.log(res.data));
+        if (vaildated){
 
-        this.setState({
-            course_code:'',
-            course_name:'',
-            course_instructor:'',
-            course_instructor_email:''
-        })
+          const newCourse = {
+              course_code: this.state.course_code,
+              course_name: this.state.course_name,
+              course_instructor: this.state.course_instructor,
+              course_instructor_email: this.state.course_instructor_email
+          };
+          axios.post('http://localhost:4000/course/add', newCourse)
+              .then(res => console.log(res.data));
 
-        this.props.history.push('/admin_profile');
+          this.setState({
+              course_code:'',
+              course_name:'',
+              course_instructor:'',
+              course_instructor_email:''
+          })
+
+          this.props.history.push('/admin_profile');
+        }
     }
 
     render() {
@@ -117,6 +141,9 @@ export default class AddCourse extends Component{
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Create Course" className="btn btn-primary"/>
+                    </div>
+                    <div className= "alert-danger">
+                      {this.state.validationMessage}
                     </div>
                 </form>
             </div>
