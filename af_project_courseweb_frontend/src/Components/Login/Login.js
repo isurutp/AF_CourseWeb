@@ -42,11 +42,11 @@ class Login extends React.Component {
     Axios.post('http://localhost:4000/courseweb/login', login)
       .then(res => {
         if (res.data.validated) {
-          if (res.data.type.trim() === "instuctor" ||
-            res.data.type.trim() === "admin") {
+          if (res.data.type.trim() === "instuctor" ){
+            this.props.history.push('/instuctor_profile');
+          }else if( res.data.type.trim() === "admin") {
             this.props.history.push('/admin_profile');
-          }
-          else if (res.data.type.trim() === "student") {
+          } else if (res.data.type.trim() === "student") {
             this.props.history.push('/student_profile');
           } else {
             this.setState({ vaildationMessage: "login unsuccessful" });
