@@ -74,11 +74,13 @@ class SignUp extends React.Component{
         "student_password" :this.state.password,
 
       }
-      axios.post('http://localhost:4000/signup',newStudent)
+      axios.post('http://localhost:4000/courseweb/signup',newStudent)
         .then(res => {
               this.setState({messageClassName:'alert-success'});
-              this.setState({validationMessage: res.data.message});
+              this.setState({validationMessage: res.data.validated});
         });
+
+
 
     }
   }
