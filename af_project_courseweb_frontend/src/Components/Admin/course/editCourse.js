@@ -70,7 +70,7 @@ export default class EditCourse extends Component{
           String(this.state.course_instructor).trim() === "" ||
           String(this.state.course_instructor_email).trim() === ""){
           this.setState({validationMessage:'cannot have empty fields'})
-        }else if(!validator.validateUsername(this.state.course_name)){
+        }else if(!validator.validateName(this.state.course_name)){
           this.setState({validationMessage:'Course name is too long'});
         }else if (!validator.validateEmail(this.state.course_instructor_email)){
           this.setState({validationMessage:'email not valided'});
@@ -143,7 +143,7 @@ export default class EditCourse extends Component{
                     <div className="form-group">
                         <input type="submit" value="Update Course" className="btn btn-primary"/>
                     </div>
-                    
+
                     <div className= "alert-danger">
                       {this.state.validationMessage}
                     </div>
