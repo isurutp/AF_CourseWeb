@@ -1,6 +1,6 @@
-let Admin = require('./admin');
-let Instuctor = require('./insturctor');
-let Student = require('./student');
+let Admin = require('./DBSchema/admin.model');
+let Instuctor = require('./DBSchema/instructor.model');
+let Student = require('./DBSchema/StudentSchema');
 
 
 
@@ -23,7 +23,7 @@ function validate(username, password, res){
                res.status(200).send({validated:false,type:"student"});
              }
            }else{
-             Instuctor.findOne({ instructor_username: , username }, (err,instuctor) => {
+             Instuctor.findOne({ instructor_username: username }, (err,instuctor) => {
                if(instuctor != null){
                  if (password.trim() === instuctor.instructor_password.trim()){
                    res.status(200).send({validated:true,type:"instuctor"});
