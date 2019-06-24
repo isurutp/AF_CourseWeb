@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import axios from 'axios' ;
-import {Slideshow} from '../styles/zoomOut';
 
 export default class HomeComponent extends Component {
 
@@ -8,6 +7,7 @@ export default class HomeComponent extends Component {
         super(props);
         this.state = {};
     }
+
 
     render() {
         return(
