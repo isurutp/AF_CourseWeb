@@ -43,7 +43,7 @@ class Login extends React.Component {
       .then(res => {
         if (res.data.validated) {
           if (res.data.type.trim() === "instuctor" ){
-            this.props.history.push('/instuctor_profile');
+            this.props.history.push('/instructor_profile');
           }else if( res.data.type.trim() === "admin") {
             this.props.history.push('/admin_profile');
           } else if (res.data.type.trim() === "student") {

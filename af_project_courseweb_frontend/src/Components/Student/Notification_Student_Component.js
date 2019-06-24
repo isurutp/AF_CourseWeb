@@ -22,7 +22,7 @@ export default class Notification_Student_Component extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/courseweb/student/assignments/5d0fd17d7885722f646b8b35')
+        axios.get('http://localhost:4000/courseweb/student/assignments/5d109304b94c6b2e7ce72f0a')
             .then(res => {
                 this.setState({list: res.data});
             }).catch(function (err) {
