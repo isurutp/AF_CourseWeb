@@ -12,7 +12,7 @@ export default class LoginComponent extends Component {
     render() {
         return(
             <div>
-                <Login/>
+                <Login  history={this.props.history}/>
             </div>
         )
     }

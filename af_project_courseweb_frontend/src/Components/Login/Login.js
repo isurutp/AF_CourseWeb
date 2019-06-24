@@ -7,8 +7,8 @@ import student_profile from "../Student_Profile_Component";
 
 class Login extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       password: [''],
       username: [''],
@@ -95,7 +95,7 @@ class Login extends React.Component {
         </form>
         <Route exact path = {"/student_profile"} component = {"student_profile"}/>
       </div>
-      
+
     );
   }
 
