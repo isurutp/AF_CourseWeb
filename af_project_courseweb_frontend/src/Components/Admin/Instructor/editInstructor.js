@@ -80,7 +80,12 @@ export default class EditInstructor extends Component{
           axios.post('http://localhost:4000/instructor/update/' +this.props.match.params.id, instructorObj)
               .then(res => console.log(res.data));
 
-          this.props.history.push('/admin_profile');
+            this.setState({
+                instructor_username:'',
+                instructor_email:'',
+                instructor_password:''
+            })
+          //this.props.history.push('/admin_profile');
         }
     }
 
