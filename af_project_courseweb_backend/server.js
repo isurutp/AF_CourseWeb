@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
+const upload = require('express-fileupload');
 
 let Assignments = require('./DBSchema/AssignmentSchema');
 let studentList = require('./DBSchema/StudentSchema');
@@ -11,6 +12,8 @@ let studentList = require('./DBSchema/StudentSchema');
 let Admin = require('./routes/admin.route');
 let Instructor = require('./routes/instructor.route');
 let Course = require('./routes/course.route');
+
+const validate = require('./Login');
 
 //******************************************* REMOVE THIS CODE *********************************************************
 //**********************************************************************************************************************
@@ -25,6 +28,7 @@ const courseRoutes = express.Router();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(upload());
 
 const PORT = 4000;
 
@@ -70,6 +74,13 @@ app.route('/email').post((req, res) => {
 });
 
 
+courseRoutes.route('/assignments/get/:id').get(function(req, res){
+    let id = req.params.id;
+    Assignments.findById(id, function (err, assignments){
+        res.json(assignments);
+    })
+});
+
 courseRoutes.route('/assignments/add').post(function (req, res){
     let assignments = new Assignments(req.body);
     assignments.save()
@@ -78,12 +89,13 @@ courseRoutes.route('/assignments/add').post(function (req, res){
     })
     .catch(err =>{
         res.status(400).send(err);
+        console.log(err);
     });
 });
 
 //view assignments of a particular course
 courseRoutes.route('/assignments/:courseNo').get(function(req, res){
-    let courseNo = req.params.id;
+    let courseNo = req.params.courseNo;
     Assignments.find({assignment_course : courseNo}, function(err, assignments){
         res.json(assignments);
     })
@@ -111,6 +123,28 @@ courseRoutes.route('/assignments/update/:id').post(function(req, res){
             });
         }
     });
+});
+
+
+//************************************************* Login & Signup ************************************************************
+//**********************************************************************************************************************
+//sign up
+courseRoutes.post('/signup', (req,res) => {
+   let student = new studentList(req.body);
+   student.save()
+    .then(student => {
+      res.status(200).send({message:"signed up"});
+    })
+    .catch(err => {
+      res.status(404).send({message:err})
+    })
+
+});
+
+
+//login
+courseRoutes.post('/login',(req,res) => {
+  validate(req.body.username,req.body.password,res)
 });
 
 
@@ -154,15 +188,37 @@ courseRoutes.post('/student/enroll/:studentId', function (req,res) {
         if (!student){
             res.status(404).json({message: 'Data not found'})
         }else{
-            student.student_courses.push(req.body);
 
-            student.save()
-                .then(course => {
-                    res.status(200).json({message: 'Successfully added', data: course})
-                })
-                .catch(err => {
-                    res.status(400).json({message: 'Update failed', error: err})
-                })
+            var count = student.student_courses.length ;
+            var i ;
+            var csFound = true ;
+            var csData = "Not found" ;
+
+            for (i=0; i<count; i++){
+                if (student.student_courses[i].courseId === req.body.courseId){
+                    csFound= false ;
+                }
+            }
+
+            function sendResponse(){
+                setTimeout( function(){
+                    if(csFound){
+                        student.student_courses.push(req.body);
+
+                        student.save()
+                            .then(course => {
+                                res.status(200).json({message: 'Successfully added', data: course})
+                            })
+                            .catch(err => {
+                                res.status(400).json({message: 'Update failed', error: err})
+                            })
+                    }else{
+                        res.status(200).send({message: "Already enrolled"});
+                    }
+                }, 500 );
+            }
+
+            sendResponse();
         }
     })
 });
@@ -243,6 +299,27 @@ courseRoutes.get('/student/my_courses/:studentId', function (req,res) {
             sendDetails();
         }
     })
+});
+
+courseRoutes.route("/student/assignment_submission").post(function(req,res){
+    if(req.body){
+        var filename = req.body.filename ;
+
+        res.status(200).json({file_name : filename})
+
+        /*file.mv("./upload/"+filename,function(err){
+            if (err){
+                console.log(err)
+                res.send("Error occured")
+            }else{
+                console.log(file)
+                res.send("Successful")
+            }
+        })*/
+    }else{
+        res.status(400).json({message : "Data not found"})
+    }
+    //res.status(200).json({mes: "Working", data: req.body.filename})
 });
 
 
