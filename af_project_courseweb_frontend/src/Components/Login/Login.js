@@ -41,7 +41,12 @@ class Login extends React.Component{
     Axios.post('http://localhost:4000/login',login)
       .then(res => {
         if(res.data.validated){
-            this.setState({vaildationMessage: "logged in"});
+          if(res.data.type.trim() === "instuctor"  ||
+            res.data.type.trim() ===  "admin"){
+            this.props.history.push('/admin_profile');
+          }
+        else if ( res.data.type.trim() === "student"){
+            this.props.history.push('/student_profile');
         }else{
             this.setState({vaildationMessage: "login unsuccessful"});
         }
