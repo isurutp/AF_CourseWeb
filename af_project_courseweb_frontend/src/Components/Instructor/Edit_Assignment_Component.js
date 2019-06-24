@@ -93,7 +93,7 @@ export default class Edit_Assignment_Component extends Component {
     render() {
         return (
             <div style={{ marginTop: 20 }}>
-                <h3>Add Assignment</h3>
+                <h3>Edit Assignment</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Assignment Name</label>
