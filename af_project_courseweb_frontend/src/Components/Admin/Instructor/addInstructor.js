@@ -74,7 +74,7 @@ export default class AddInstructor extends Component{
               instructor_password:''
           })
 
-          this.props.history.push('/admin_profile');
+          //this.props.history.push('/admin_profile');
         }
     }
 
