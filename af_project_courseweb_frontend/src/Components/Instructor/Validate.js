@@ -136,7 +136,7 @@ Validator.prototype.validateCourseCode = (value) => {
 }
 
 
- Validator.prototype.validateDate = (value) 
+
 
 module.exports = Validator;
 //export default Validator;
