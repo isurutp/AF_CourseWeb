@@ -99,7 +99,7 @@ export default class AddCourse extends Component{
               course_instructor_email:''
           })
 
-          this.props.history.push('/admin_profile');
+         // this.props.history.push('/admin_profile');
         }
     }
 

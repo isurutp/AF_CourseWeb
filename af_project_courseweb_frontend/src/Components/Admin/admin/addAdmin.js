@@ -78,7 +78,7 @@ export default class AddAdmin extends Component{
                 admin_password_error:''
             });
 
-            this.props.history.push('/admin_profile');
+            //this.props.history.push('/admin_profile');
           }
     }
 
