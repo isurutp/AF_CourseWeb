@@ -31,6 +31,11 @@ export const NavigationBar = () => (
                     <Link to="/student_profile">Student</Link>
                 </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+                <Nav.Link>
+                    <Link to="/instructor_profile">Instructor</Link>
+                </Nav.Link>
+            </Nav.Item>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
