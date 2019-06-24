@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import axios from 'axios';
+import Validator from './Validate';
 
 import view_assignment from './View_Assignments_Component';
 
@@ -28,7 +29,8 @@ export default class Edit_Assignment_Component extends Component {
                     assignment_name: response.data.assignment_name,
                     assignment_due: response.data.assignment_due,
                     assignment_marks: response.data.assignment_marks,
-                    assignment_course: response.data.assignment_course
+                    assignment_course: response.data.assignment_course,
+                    validationMessage:['']
                 })
             })
             .catch(function(error){
@@ -56,20 +58,36 @@ export default class Edit_Assignment_Component extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
-        const newAssignment = {
-            assignment_name: this.state.assignment_name,
-            assignment_due: this.state.assignment_due,
-            assignment_marks: this.state.assignment_marks,
-            assignment_course: this.state.assignment_course
+        const validator = new Validator();
+        let vaildated = false;
+        if (String(this.state.assignment_name).trim() === "" ||
+          String(this.state.assignment_due).trim() === "" || String(this.state.email).trim() === "" ||
+          String(this.state.assignment_marks).trim() === ""){
+          this.setState({validationMessage:'cannot have empty fields'})
+        // }else if (!(this.state.assignment_marks <= 0
+        //   && this.state.assignment_marks >= 100)){
+        //   this.setState({validationMessage:
+        //     'Marks must be an number between 0 and 100'});
+        }else{
+          vaildated = true;
+          this.setState({validationMessage:''})
         }
 
-        console.log(newAssignment);
+        if (vaildated){
+          const newAssignment = {
+              assignment_name: this.state.assignment_name,
+              assignment_due: this.state.assignment_due,
+              assignment_marks: this.state.assignment_marks,
+              assignment_course: this.state.assignment_course
+          }
 
-        axios.post('http://localhost:4000/courseweb/assignments/update/' + this.props.match.params.id, newAssignment)
-            .then(res => console.log(res.data));
+          console.log(newAssignment);
 
-        this.props.history.push('/view_assignment/' + this.state.assignment_course);
+          axios.post('http://localhost:4000/courseweb/assignments/update/' + this.props.match.params.id, newAssignment)
+              .then(res => console.log(res.data));
+
+          this.props.history.push('/view_assignment/' + this.state.assignment_course);
+        }
     }
 
     render() {
@@ -103,8 +121,11 @@ export default class Edit_Assignment_Component extends Component {
                     <div className="form-group">
                         <input type="submit" value="Update Assignment" className="btn btn-primary" />
                     </div>
+                    <div className= "alert-danger">
+                      {this.state.validationMessage}
+                    </div>
 
-                    <Route exact path={'/view_assignment/:id'} component = {view_assignment}/> 
+                    <Route exact path={'/view_assignment/:id'} component = {view_assignment}/>
                 </form>
             </div>
         )

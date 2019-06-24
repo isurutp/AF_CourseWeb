@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Validator from './Validate';
 
 export default class Add_Assignment_Component extends Component {
     constructor(props) {
@@ -14,7 +15,8 @@ export default class Add_Assignment_Component extends Component {
             assignment_name :'',
             assignment_due :'',
             assignment_marks : 0,
-            assignment_course : this.props.match.id
+            assignment_course : this.props.match.id,
+            validationMessage:['']
         }
     }
 
@@ -38,25 +40,41 @@ export default class Add_Assignment_Component extends Component {
 
     onSubmit(e){
         e.preventDefault();
-
-        const newAssignment = {
-            assignment_name : this.state.assignment_name,
-            assignment_due : this.state.assignment_due,
-            assignment_marks : this.state.assignment_marks,
-            assignment_course : this.props.match.params.id
+        const validator = new Validator();
+        let vaildated = false;
+        if (String(this.state.assignment_name).trim() === "" ||
+          String(this.state.assignment_due).trim() === "" || String(this.state.email).trim() === "" ||
+          String(this.state.assignment_marks).trim() === ""){
+          this.setState({validationMessage:'cannot have empty fields'})
+        // }else if (!(this.state.assignment_marks <= 0
+        //   && this.state.assignment_marks >= 100)){
+        //   this.setState({validationMessage:
+        //     'Marks must be an number between 0 and 100'});
+        }else{
+          vaildated = true;
+          this.setState({validationMessage:''})
         }
 
-        console.log(newAssignment);
+        if (vaildated){
+          const newAssignment = {
+              assignment_name : this.state.assignment_name,
+              assignment_due : this.state.assignment_due,
+              assignment_marks : this.state.assignment_marks,
+              assignment_course : this.props.match.params.id
+          }
 
-        axios.post('http://localhost:4000/courseweb/assignments/add', newAssignment)
-        .then(res => console.log(res.data));
+          console.log(newAssignment);
 
-        this.setState({
-            assignment_name :'',
-            assignment_due :'',
-            assignment_marks : 0,
-            assignment_course : this.props.match.params.id
-        })
+          axios.post('http://localhost:4000/courseweb/assignments/add', newAssignment)
+          .then(res => console.log(res.data));
+
+          this.setState({
+              assignment_name :'',
+              assignment_due :'',
+              assignment_marks : 0,
+              assignment_course : this.props.match.params.id
+          })
+      }
     }
 
     render() {
@@ -89,6 +107,9 @@ export default class Add_Assignment_Component extends Component {
                     </div>
                     <div className = "form-group">
                         <input type = "submit" value = "Add Assignment" className = "btn btn-primary" />
+                    </div>
+                    <div className= "alert-danger">
+                      {this.state.validationMessage}
                     </div>
                 </form>
             </div>
