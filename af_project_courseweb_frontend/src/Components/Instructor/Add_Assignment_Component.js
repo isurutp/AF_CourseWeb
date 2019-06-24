@@ -39,9 +39,6 @@ export default class Add_Assignment_Component extends Component {
     onSubmit(e){
         e.preventDefault();
 
-        console.log(`Todo Completed: ${this.props.match.params.id}`);
-
-
         const newAssignment = {
             assignment_name : this.state.assignment_name,
             assignment_due : this.state.assignment_due,

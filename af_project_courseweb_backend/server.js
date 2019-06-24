@@ -72,6 +72,13 @@ app.route('/email').post((req, res) => {
 });
 
 
+courseRoutes.route('/assignments/get/:id').get(function(req, res){
+    let id = req.params.id;
+    Assignments.findById(id, function (err, assignments){
+        res.json(assignments);
+    })
+});
+
 courseRoutes.route('/assignments/add').post(function (req, res){
     let assignments = new Assignments(req.body);
     assignments.save()
